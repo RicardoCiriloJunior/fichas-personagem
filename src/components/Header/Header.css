@@ -1,0 +1,43 @@
+header {
+    background-color: var(--fundo-header);
+}
+header .header-img {
+    width: 100%;
+    transform: translateY(6px);
+}
+header {
+    width: 100vw;
+}
+.header-voltar {
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 119px;
+    cursor: pointer;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: space-between;
+    height: 111px;
+    font-family: 'Aclonica', Arial;
+    background-color: var(--fundo-header);
+    padding: 0 20px;
+}
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header-title  h1{
+    font-size: 40px;
+    color: white;
+    font-weight: 400;
+}
+.header-voltar-vazio {
+    width: 119px;
+    visibility: hidden;
+}

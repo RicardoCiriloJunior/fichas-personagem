@@ -1,0 +1,14 @@
+:root {
+  --fundo-header: #837763
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #131F2D;
+  min-height: 100vh;
+  width: 100vw;
+}
