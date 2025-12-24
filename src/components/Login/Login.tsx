@@ -1,39 +1,46 @@
 import "./Login.css";
 import Header from "../Header/Header";
-import { useEffect } from "react";
+import InputLogin from "../../InputLogin/InputLogin";
+import { useEffect, useRef } from "react";
 
 function Login() {
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  useEffect( () => {
+  useEffect(() => {
     document.title = "Login - Fichas de Personagem";
-  })
+  }, []);
 
   return (
     <div className="page-container" id="pagina-login">
-      <Header title="Login" voltar={true}/>
+      <Header title="Login" voltar={false} />
       <main>
-        <div className="login-content">
+        <form
+          className="blue-content"
+          id="login-content"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <h1 id="titulo-login">Entre na sua conta</h1>
-          <div className="input">
-            <label htmlFor="email-input">Email:</label>
-            <input
-              type="email"
-              className="email-input"
-              placeholder="exemplo@email.com"
-            />
+          <InputLogin
+            placeholder={"Exemplo: exemplo@email.com"}
+            label="Email:"
+            type="email"
+            idInput="email-input"
+            name="email"
+          />
+          <InputLogin
+            placeholder={"Digite a sua senha"}
+            label="Senha:"
+            type="password"
+            idInput="senha-input"
+            name="password"
+            reference={passwordRef}
+          />
+          <div className="links-login">
+            <a href="">Esqueceu a senha?</a>
+            <p>Não tem conta? <a href="">Cadastre-se</a></p>
           </div>
-          <div className="input">
-            <label htmlFor="senha-input">Senha:</label>
-            <input
-              type="password"
-              className="senha-input"
-              placeholder="Digite a sua senha"
-            />
-          </div>
-          <p>Esqueceu a senha?</p>
-          <p>Não tem conta? Cadastre-se</p>
           <button className="botao-login">Entrar</button>
-        </div>
+        </form>
       </main>
     </div>
   );

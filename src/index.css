@@ -1,5 +1,8 @@
 :root {
-  --fundo-header: #837763
+  --fundo-header: #837763;
+  --azul-content: #495A6E;
+  --fundo-botao: #858C94;
+  --texto-botao: #D8C29A
 }
 
 * {
@@ -11,4 +14,42 @@ body {
   background-color: #131F2D;
   min-height: 100vh;
   width: 100vw;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.blue-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: var(--azul-content);
+  margin: 0 auto;
+  width: 50%;
+  min-height: 475px;
+  border-radius: 15px;
+  padding: 30px 70px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.blue-content h1 {
+  font-family: 'Aclonica', Arial;
+  font-size: 48px;
+  font-weight: 400;
+}
+.links-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: 'Alice', Arial;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+.links-login a {
+  color: white;
+  text-decoration: underline;
 }
