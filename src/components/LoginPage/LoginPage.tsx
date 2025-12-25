@@ -37,7 +37,7 @@ function Login() {
             reference={passwordRef}
           />
           <div className="links-login">
-            <a href="">Esqueceu a senha?</a>
+            <a href="esqueceu-senha">Esqueceu a senha?</a>
             <p>Não tem conta? <a href="cadastro">Cadastre-se</a></p>
           </div>
           <BotaoConfirmar content={"Entrar"} />

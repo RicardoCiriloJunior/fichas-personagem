@@ -11,4 +11,5 @@
   border: none;
   border-radius: 7px;
   cursor: pointer;
+  justify-self: flex-end;
 }

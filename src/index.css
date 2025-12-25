@@ -21,15 +21,24 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+.page-container main {
+  margin-top: 40px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+}
 .blue-content {
   display: flex;
   flex-direction: column;
+  height: fit-content;
+  gap: 35px;
   align-items: center;
   color: white;
   background-color: var(--azul-content);
   margin: 0 auto;
   width: 50%;
-  min-height: 475px;
   border-radius: 15px;
   padding: 30px 70px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -52,4 +61,11 @@ body {
 .links-login a {
   color: white;
   text-decoration: underline;
+}
+.descricao-login {
+  font-family: 'Alice', Arial;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  width: 80%;
 }
