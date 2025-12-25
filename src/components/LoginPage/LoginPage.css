@@ -1,0 +1,18 @@
+.page-container main {
+  margin-top: 40px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+#login-content {
+  min-height: 595px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* #titulo-login {
+  margin-bottom: 30px;
+} */

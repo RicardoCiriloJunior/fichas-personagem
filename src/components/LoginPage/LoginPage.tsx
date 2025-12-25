@@ -1,6 +1,7 @@
-import "./Login.css";
+import "./LoginPage.css";
 import Header from "../Header/Header";
-import InputLogin from "../../InputLogin/InputLogin";
+import InputLogin from "../InputLogin/InputLogin";
+import BotaoConfirmar from "../BotaoConfirmar/BotaoConfirmar";
 import { useEffect, useRef } from "react";
 
 function Login() {
@@ -37,9 +38,9 @@ function Login() {
           />
           <div className="links-login">
             <a href="">Esqueceu a senha?</a>
-            <p>Não tem conta? <a href="">Cadastre-se</a></p>
+            <p>Não tem conta? <a href="cadastro">Cadastre-se</a></p>
           </div>
-          <button className="botao-login">Entrar</button>
+          <BotaoConfirmar content={"Entrar"} />
         </form>
       </main>
     </div>

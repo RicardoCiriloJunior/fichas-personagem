@@ -1,0 +1,14 @@
+.botao-confirmar {
+  min-width: 225px;
+  padding: 20px 10px;
+  height: 90px;
+  font-family: 'Alice', Arial;
+  font-weight: 400;
+  letter-spacing: calc(40px * 0.07);
+  background-color: var(--fundo-botao);
+  color: var(--texto-botao);
+  font-size: 40px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
