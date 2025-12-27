@@ -10,6 +10,8 @@ type Props = {
   idInput: string;
   name: string;
   reference?: React.RefObject<HTMLInputElement | null>;
+  width?: string | number | undefined;
+  label_align?: React.CSSProperties["textAlign"];
 };
 
 function InputLogin({
@@ -20,12 +22,16 @@ function InputLogin({
   idInput,
   reference,
   name,
+  width = "100%",
+  label_align = "left",
 }: Props) {
   const [senhaVisivel, setSenhaVisivel] = useState(false);
 
   return type === "password" ? (
-    <div className={"input-container"}>
-      <label htmlFor={idInput}>{label}</label>
+    <div className={"input-container"} style={{width: width}}>
+      <label htmlFor={idInput} style={{ textAlign: label_align }}>
+        {label}
+      </label>
       <div className="password-input-container">
         <input
           type={senhaVisivel ? "text" : "password"}
@@ -36,15 +42,23 @@ function InputLogin({
           name={name}
         />
         {senhaVisivel ? (
-          <FaEye className="password-eye" onClick={() => setSenhaVisivel(!senhaVisivel)} />
+          <FaEye
+            className="password-eye"
+            onClick={() => setSenhaVisivel(!senhaVisivel)}
+          />
         ) : (
-          <FaEyeSlash className="password-eye" onClick={() => setSenhaVisivel(!senhaVisivel)} />
+          <FaEyeSlash
+            className="password-eye"
+            onClick={() => setSenhaVisivel(!senhaVisivel)}
+          />
         )}
       </div>
     </div>
   ) : (
-    <div className={"input-container "}>
-      <label htmlFor={idInput}>{label}</label>
+    <div className={"input-container "} style={{width: width}}>
+      <label htmlFor={idInput} style={{ textAlign: label_align }}>
+        {label}
+      </label>
       <input
         type={type}
         className={"input " + classname}

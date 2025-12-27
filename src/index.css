@@ -69,3 +69,6 @@ body {
   text-align: center;
   width: 80%;
 }
+.half-width {
+  width: 50%;
+}

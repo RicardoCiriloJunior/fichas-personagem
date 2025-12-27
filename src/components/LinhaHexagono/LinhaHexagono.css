@@ -1,0 +1,11 @@
+.linha-hexagono-container {
+    width: 97%;
+    padding: 20px;
+    display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+    gap: 25px;
+}
+.linha-hexagono-container img {
+    width: 75px;
+}
