@@ -1,8 +1,8 @@
 :root {
   --fundo-header: #837763;
-  --azul-content: #495A6E;
-  --fundo-botao: #858C94;
-  --texto-botao: #D8C29A
+  --azul-content: #495a6e;
+  --fundo-botao: #858c94;
+  --texto-botao: #d8c29a;
 }
 
 * {
@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #131F2D;
+  background-color: #131f2d;
   min-height: 100vh;
   width: 100vw;
 }
@@ -44,7 +44,7 @@ body {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 .blue-content h1 {
-  font-family: 'Aclonica', Arial;
+  font-family: "Aclonica", Arial;
   font-size: 48px;
   font-weight: 400;
 }
@@ -53,7 +53,7 @@ body {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
-  font-family: 'Alice', Arial;
+  font-family: "Alice", Arial;
   font-size: 24px;
   font-weight: 400;
   text-align: center;
@@ -63,11 +63,15 @@ body {
   text-decoration: underline;
 }
 .descricao-login {
-  font-family: 'Alice', Arial;
+  font-family: "Alice", Arial;
   font-size: 24px;
   font-weight: 400;
   text-align: center;
   width: 80%;
+}
+.alice {
+  font-family: "Alice", Arial;
+  font-weight: 400;
 }
 .half-width {
   width: 50%;

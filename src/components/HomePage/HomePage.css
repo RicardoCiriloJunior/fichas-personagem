@@ -25,13 +25,13 @@
   box-shadow: 0 4px 4px 0 var(0, 0, 0, 0.25);
 }
 .inputs-principal {
-    height: 55px !important;
+  height: 55px !important;
 }
 .input-container label {
-    font-size: 36px;
+  font-size: 36px;
 }
 .input-container {
-    gap: 15px;
+  gap: 15px;
 }
 #principal {
   display: flex;
@@ -62,4 +62,61 @@
   transform: rotate(-70deg);
   border-radius: 9px;
 }
+#secundario {
+  display: flex;
+}
+#atributos-e-modificadores {
+  display: flex;
+  font-size: 36px;
+  font-weight: 400;
+  gap: 40px;
+  justify-content: center;
+}
+#atributos-container,
+#modificadores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.atributo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.atributo span {
+  font-size: 32px;
+}
+#dinheiro-e-reputacao {
+  display: flex;
+  font-size: 36px;
+  font-weight: 400;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 
+#dinheiro-container, #reputacao-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+#dinheiro-container {
+    width: 100%;
+}
+#inputs-dinheiro {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#inputs-reputacao {
+    display: flex;
+    gap: 35px;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid white;
+    flex-wrap: wrap;
+}

@@ -3,6 +3,8 @@ import Header from "../Header/Header";
 import InputLogin from "../InputLogin/InputLogin";
 import StatusValor from "../StatusValor/StatusValor";
 import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
+import InputAtributo from "../InputAtributo/InputAtributo";
+
 
 function HomePage() {
   return (
@@ -71,6 +73,63 @@ function HomePage() {
               <StatusValor label="Max" name="manaMax" directionLabel="right" />
             </div>
           </div>
+        </section>
+        <LinhaHexagono />
+        <section className="content-box" id="secundario">
+            <div className="half-width alice" id="atributos-e-modificadores">
+                <div id="atributos-container">
+                    <p>Atributos</p>
+                    <div className="atributo">
+                        <span>FOR</span> <InputAtributo name="forca" />
+                    </div>
+                    <div className="atributo">
+                        <span>AGI</span> <InputAtributo name="agilidade" />
+                    </div>
+                    <div className="atributo">
+                        <span>INT</span> <InputAtributo name="inteligencia" />
+                    </div>
+                    <div className="atributo">
+                        <span>CAR</span> <InputAtributo name="carisma" />
+                    </div>
+                    <div className="atributo">
+                        <span>VIG</span> <InputAtributo name="vigor" />
+                    </div>
+                    <div className="atributo">
+                        <span>DES</span> <InputAtributo name="destreza" />
+                    </div>
+                    <div className="atributo">
+                        <span>SRT</span> <InputAtributo name="sorte" />
+                    </div>
+                </div>
+                <div id="modificadores-container">
+                    <p>Mod</p>
+                    <InputAtributo name="modForca" />
+                    <InputAtributo name="modAgilidade" />
+                    <InputAtributo name="modInteligencia" />
+                    <InputAtributo name="modCarisma" />
+                    <InputAtributo name="modVigor" />
+                    <InputAtributo name="modDestreza" />
+                    <InputAtributo name="modSorte" />
+                </div>
+            </div>
+            <div className="half-width alice" id="dinheiro-e-reputacao">
+                <div id="dinheiro-container">
+                    <p>Dinheiro</p>
+                    <div id="inputs-dinheiro">
+                        <StatusValor label="Ouro" name="dinheiroOuro" />
+                        <StatusValor label="Prata" name="dinheiroPrata" />
+                        <StatusValor label="Cobre" name="dinheiroCobre" />
+                    </div>
+                </div>
+                <div id="reputacao-container">
+                    <p>Reputação</p>
+                    <div id="inputs-reputacao">
+                        <StatusValor label="Generalistas" name="repGeneralistas" />
+                        <StatusValor label="Puristas" name="repPuristas" />
+                        <StatusValor label="Karma" name="repKarma" />
+                    </div>
+                </div>
+            </div>
         </section>
         <LinhaHexagono />
       </main>
