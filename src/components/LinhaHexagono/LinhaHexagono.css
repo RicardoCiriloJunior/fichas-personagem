@@ -5,6 +5,8 @@
     overflow: hidden;
     justify-content: space-between;
     gap: 25px;
+    align-items: center;
+    justify-content: space-around;
 }
 .linha-hexagono-container img {
     width: 75px;

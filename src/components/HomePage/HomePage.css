@@ -35,17 +35,22 @@
 }
 #principal {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
   min-height: 150px;
   gap: 30px;
+}
+.linha-principal {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 .min-max-container {
   display: flex;
   flex-direction: column;
   font-family: "Alice", Arial;
   font-size: 36px;
+  /* width: 336px; */
   font-weight: 400;
   gap: 15px;
   text-align: center;
@@ -117,6 +122,8 @@
     gap: 35px;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid white;
     flex-wrap: wrap;
 }
+.status-valor-reputacao {
+   width: 40%;
+} 

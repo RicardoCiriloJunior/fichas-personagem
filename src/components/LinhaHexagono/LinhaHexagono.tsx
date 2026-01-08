@@ -40,6 +40,7 @@ function LinhaHexagono() {
           alt=""
           style={{ transform: `rotate(${rotacao}deg)` }}
         />
+        
       ))}
     </div>
   );
