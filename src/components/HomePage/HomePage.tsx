@@ -12,10 +12,10 @@ import mochila from "../../assets/mochila.png";
 
 function HomePage() {
   return (
-    <div className="home-container" id="home-page">
+    <div className="home-container page-container" id="home-page">
       <Header title="Ficha" voltar={false} />
       <main>
-        <h1 id="home-title">A Grande Guerra</h1>
+        <h1 className="home-title">A Grande Guerra</h1>
         <section className="content-box" id="principal">
           <div className="linha-principal">
             <InputLogin

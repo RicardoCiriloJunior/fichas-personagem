@@ -7,7 +7,7 @@
     height: 251px;
     background-color: var(--azul-botao);
     border-radius: 11px;
-    color: var(--texto-amarelo);
+    color: var(--texto-botao);
     padding: 15px;
     cursor: pointer;
 }

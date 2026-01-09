@@ -4,14 +4,14 @@ import { FaArrowLeft } from "react-icons/fa";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
-function Diamante() {
+export function Diamante() {
   return <img src={diamante_icon} />;
 }
 
-function Voltar() {
+function Voltar({ navigateTo }: { navigateTo: string }) {
   const navigate = useNavigate();
   return (
-    <div className="header-voltar" onClick={() => navigate("/login")}>
+    <div className="header-voltar" onClick={() => navigate(navigateTo)}>
       <FaArrowLeft size={29} />
       <p>Voltar</p>
     </div>
@@ -21,13 +21,14 @@ function Voltar() {
 type Props = {
   voltar?: boolean;
   title: string;
+  navigateTo?: string;
 };
 
-function Header({ voltar, title }: Props) {
+function Header({ voltar, title, navigateTo }: Props) {
   return (
     <header>
       <div className="header-content">
-        {voltar ? <Voltar /> : <div className="header-voltar-vazio"></div>}
+        {voltar && navigateTo ? <Voltar navigateTo={navigateTo} /> : <div className="header-voltar-vazio"></div>}
         <div className="header-title">
           <Diamante />
           <h1>{title}</h1>

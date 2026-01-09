@@ -6,7 +6,7 @@ import BotaoConfirmar from "../BotaoConfirmar/BotaoConfirmar.tsx";
 function CadastroPage() {
   return (
     <div className="page-container" id="pagina-cadastro">
-      <Header title="Cadastro" voltar={true} />
+      <Header title="Cadastro" voltar={true} navigateTo="/login"/>
       <main>
         <form
           className="blue-content"

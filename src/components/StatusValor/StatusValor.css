@@ -11,7 +11,6 @@
     font-size: 32px;
 }
 .status-valor-input {
-    height: 55px;
     text-align: center;
     width: 80px;
     border-radius: 10px;
@@ -25,4 +24,9 @@
 .status-valor-input::-webkit-inner-spin-button, .status-valor-input::-webkit-outer-spin-button{
     -webkit-appearance: none;
     margin: 0;
+}
+.seta-icon {
+    cursor: pointer;
+    color: var(--borda-item-section);
+    user-select: none;
 }

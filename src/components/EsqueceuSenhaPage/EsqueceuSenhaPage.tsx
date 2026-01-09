@@ -6,7 +6,7 @@ import BotaoConfirmar from "../BotaoConfirmar/BotaoConfirmar";
 function EsqueceuSenhaPage() {
   return (
     <div className="page-container" id="pagina-esqueceu-senha">
-      <Header title="Mudar Senha" voltar={true} />
+      <Header title="Mudar Senha" voltar={true} navigateTo="/login"/>
       <main>
         <form
           className="blue-content"
