@@ -1,0 +1,23 @@
+.outras-secoes-botao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 280px;
+    height: 251px;
+    background-color: var(--azul-botao);
+    border-radius: 11px;
+    color: var(--texto-amarelo);
+    padding: 15px;
+    cursor: pointer;
+}
+.outras-secoes-botao img {
+    width: 149px;
+    aspect-ratio: 1 / 1;
+}
+.outras-secoes-botao span {
+    font-family: 'Aclonica', Arial;
+    font-size: 28px;
+    letter-spacing: calc(28px * 0.07);
+
+}

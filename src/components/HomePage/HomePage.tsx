@@ -4,6 +4,10 @@ import InputLogin from "../InputLogin/InputLogin";
 import StatusValor from "../StatusValor/StatusValor";
 import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
 import InputAtributo from "../InputAtributo/InputAtributo";
+import OutrasSecoesBotao from "../OutrasSecoesBotao/OutrasSecoesBotao";
+import cajado from "../../assets/cajado.png";
+import escudo_espada from "../../assets/escudo-espada.png";
+import mochila from "../../assets/mochila.png";
 
 
 function HomePage() {
@@ -136,6 +140,14 @@ function HomePage() {
             </div>
         </section>
         <LinhaHexagono />
+        <div className="content-box" id="outras-secoes">
+          <h1>Outras Seções</h1>
+          <div>
+            <OutrasSecoesBotao label="Inventário" icon={<img src={mochila} alt="Inventário" />} />
+            <OutrasSecoesBotao label="Equipamentos" icon={<img src={escudo_espada} alt="Equipamentos" />} />
+            <OutrasSecoesBotao label="Magias" icon={<img src={cajado} alt="Magias" />} />
+          </div>
+        </div>
       </main>
     </div>
   );

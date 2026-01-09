@@ -3,6 +3,8 @@
   --azul-content: #495a6e;
   --fundo-botao: #858c94;
   --texto-botao: #d8c29a;
+  --azul-botao: rgba(153, 162, 173, 1);
+  --texto-amarelo: rgba(216, 194, 154, 1);
 }
 
 * {
