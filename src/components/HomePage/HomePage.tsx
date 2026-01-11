@@ -43,9 +43,10 @@ function HomePage() {
                   label="Atual"
                   name="vidaAtual"
                   directionLabel="left"
+                  value={0}
                 />
                 <div className="barra-diagonal"></div>
-                <StatusValor label="Max" name="vidaMax" directionLabel="right" />
+                <StatusValor label="Max" name="vidaMax" directionLabel="right" value={0}/>
               </div>
             </div>
           </div>
@@ -75,9 +76,10 @@ function HomePage() {
                   label="Atual"
                   name="manaAtual"
                   directionLabel="left"
+                  value={0}
                 />
                 <div className="barra-diagonal"></div>
-                <StatusValor label="Max" name="manaMax" directionLabel="right" />
+                <StatusValor label="Max" name="manaMax" directionLabel="right" value={0} />
               </div>
             </div>
           </div>
@@ -124,17 +126,17 @@ function HomePage() {
                 <div id="dinheiro-container">
                     <p>Dinheiro</p>
                     <div id="inputs-dinheiro">
-                        <StatusValor label="Ouro" name="dinheiroOuro" />
-                        <StatusValor label="Prata" name="dinheiroPrata" />
-                        <StatusValor label="Cobre" name="dinheiroCobre" />
+                        <StatusValor label="Ouro" name="dinheiroOuro" value={0} />
+                        <StatusValor label="Prata" name="dinheiroPrata" value={0} />
+                        <StatusValor label="Cobre" name="dinheiroCobre" value={0} />
                     </div>
                 </div>
                 <div id="reputacao-container">
                     <p>Reputação</p>
                     <div id="inputs-reputacao">
-                        <StatusValor label="Generalistas" name="repGeneralistas" classname="status-valor-reputacao"/>
-                        <StatusValor label="Puristas" name="repPuristas" classname="status-valor-reputacao"/>
-                        <StatusValor label="Karma" name="repKarma" classname="status-valor-reputacao"/>
+                        <StatusValor label="Generalistas" name="repGeneralistas" value={0} classname="status-valor-reputacao"/>
+                        <StatusValor label="Puristas" name="repPuristas" value={0} classname="status-valor-reputacao"/>
+                        <StatusValor label="Karma" name="repKarma" value={0} classname="status-valor-reputacao"/>
                     </div>
                 </div>
             </div>
