@@ -12,6 +12,8 @@ type Props = {
   reference?: React.RefObject<HTMLInputElement | null>;
   width?: string | number | undefined;
   label_align?: React.CSSProperties["textAlign"];
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function InputLogin({
@@ -24,6 +26,8 @@ function InputLogin({
   name,
   width = "100%",
   label_align = "left",
+  value,
+  onChange
 }: Props) {
   const [senhaVisivel, setSenhaVisivel] = useState(false);
 
@@ -40,6 +44,8 @@ function InputLogin({
           id={idInput}
           ref={reference}
           name={name}
+          value={value}
+          onChange={onChange}
         />
         {senhaVisivel ? (
           <FaEye
@@ -66,6 +72,8 @@ function InputLogin({
         id={idInput}
         ref={reference}
         name={name}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

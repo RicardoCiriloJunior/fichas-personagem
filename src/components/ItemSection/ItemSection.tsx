@@ -39,8 +39,8 @@ function ItemSection({ children, lixeiraInline = false, ultimoItem = false, onAd
       ) : (
         <div>
           <Lixeira onDeleteClick={onDeleteClick} />
-          {children}
-          <Adicionar display={ultimoItem} />
+          <div className="children-container">{children}</div>
+          <Adicionar display={ultimoItem} onAddClick={onAddClick}/>
         </div>
       )}
     </div>

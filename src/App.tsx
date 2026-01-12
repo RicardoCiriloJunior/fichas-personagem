@@ -4,6 +4,7 @@ import CadastroPage from './components/CadastroPage/CadastroPage';
 import EsqueceuSenhaPage from './components/EsqueceuSenhaPage/EsqueceuSenhaPage';
 import HomePage from "./components/HomePage/HomePage";
 import InventarioPage from "./components/InventarioPage/InventarioPage";
+import EquipamentosPage from "./components/EquipamentosPage/EquipamentosPage";
 
 function App(){
   return (
@@ -13,6 +14,7 @@ function App(){
       <Route path="/cadastro" element={<CadastroPage />}/>
       <Route path="/esqueceu-senha" element={<EsqueceuSenhaPage />}/>
       <Route path="/inventario" element={<InventarioPage />}/>
+      <Route path="/equipamentos" element={<EquipamentosPage />}/>
     </Routes>
   )
 }
