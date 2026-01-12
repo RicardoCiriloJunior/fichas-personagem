@@ -5,6 +5,7 @@ import EsqueceuSenhaPage from './components/EsqueceuSenhaPage/EsqueceuSenhaPage'
 import HomePage from "./components/HomePage/HomePage";
 import InventarioPage from "./components/InventarioPage/InventarioPage";
 import EquipamentosPage from "./components/EquipamentosPage/EquipamentosPage";
+import MagiasPage from "./components/MagiasPage/MagiasPage";
 
 function App(){
   return (
@@ -15,6 +16,7 @@ function App(){
       <Route path="/esqueceu-senha" element={<EsqueceuSenhaPage />}/>
       <Route path="/inventario" element={<InventarioPage />}/>
       <Route path="/equipamentos" element={<EquipamentosPage />}/>
+      <Route path="/magias" element={<MagiasPage />}/>
     </Routes>
   )
 }

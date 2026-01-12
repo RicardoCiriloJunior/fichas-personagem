@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import ItemSection from "../ItemSection/ItemSection";
 import { Diamante } from "../Header/Header";
 import StatusValor from "../StatusValor/StatusValor";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Adicionar } from "../ItemSection/ItemSection";
 function InventarioPage() {
   const [itensInventario, setItensInventario] = useState([
@@ -35,10 +35,6 @@ function InventarioPage() {
     );
   }
 
-  useEffect(() => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    console.log(itensInventario);
-  }, [itensInventario]);
 
   return (
     <div className="home-container" id="inventario-page">

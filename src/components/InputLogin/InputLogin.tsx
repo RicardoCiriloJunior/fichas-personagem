@@ -6,7 +6,7 @@ type Props = {
   classname?: string;
   placeholder?: string;
   label: string;
-  type: string;
+  type: React.HTMLInputTypeAttribute | "textarea";
   idInput: string;
   name: string;
   reference?: React.RefObject<HTMLInputElement | null>;

@@ -10,7 +10,7 @@ export type Item = {
 export type Magia = {
     id: string;
     efeito: string;
-    custo: number;
+    custo: string;
 }
 
 export type Arma = {
