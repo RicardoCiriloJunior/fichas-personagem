@@ -5,20 +5,7 @@ import InputLogin from "../InputLogin/InputLogin";
 import StatusValor from "../StatusValor/StatusValor";
 import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
 import { useState } from "react";
-
-type Arma = {
-  id: string;
-  nome: string;
-  encantamento: string;
-  dano: string;
-  custo: string;
-};
-
-type Armadura = {
-  id: string;
-  nome: string;
-  defesa: number;
-};
+import type { Arma, Armadura } from "../../Util/Ficha";
 
 function EquipamentosPage() {
   const WIDTH_INPUT = "40%";
