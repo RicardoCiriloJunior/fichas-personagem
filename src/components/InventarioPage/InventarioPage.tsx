@@ -35,15 +35,14 @@ function InventarioPage() {
     );
   }
 
-
   return (
     <div className="home-container" id="inventario-page">
       <Header title="Ficha" voltar={true} navigateTo="/" />
       <main>
         <h1 className="home-title">Inventário</h1>
-        <div className="blue-content" id="inventario-content">
-          {itensInventario.length > 0 ? (
-            itensInventario.map((item, index) => (
+        {itensInventario.length > 0 && (
+          <div className="blue-content" id="inventario-content" style={{paddingBottom: 40}}>
+            {itensInventario.map((item, index) => (
               <ItemSection
                 lixeiraInline={true}
                 ultimoItem={index === itensInventario.length - 1}
@@ -70,11 +69,14 @@ function InventarioPage() {
                   />
                 </div>
               </ItemSection>
-            ))
-          ) : (
+            ))}
+          </div>
+        )}
+        {itensInventario.length === 0 && (
+          <div className="blue-content" id="inventario-content">
             <Adicionar display={true} onAddClick={adicionarItem} sozinho />
-          )}
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );

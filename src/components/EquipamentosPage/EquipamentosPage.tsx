@@ -6,6 +6,7 @@ import StatusValor from "../StatusValor/StatusValor";
 import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
 import { useState } from "react";
 import type { Arma, Armadura } from "../../Util/Ficha";
+import { Adicionar } from "../ItemSection/ItemSection";
 
 function EquipamentosPage() {
   const WIDTH_INPUT = "40%";
@@ -82,7 +83,7 @@ function EquipamentosPage() {
         <section className="blue-content equipamentos-content" id="armas-content">
           <h1 className="equipamentos-title">Armas</h1>
 
-          {armasTeste.map((arma, index) => (
+          {armasTeste.length > 0 ? ( armasTeste.map((arma, index) => (
             <ItemSection
               key={arma.id}
               lixeiraInline={false}
@@ -137,16 +138,17 @@ function EquipamentosPage() {
                 />
               </div>
             </ItemSection>
-          ))}
+          ))) : (
+            <Adicionar display={true} onAddClick={adicionarArma} sozinho />
+          )}
         </section>
 
         <LinhaHexagono />
 
-        {/* Seção Armaduras */}
         <section className="blue-content equipamentos-content" id="armaduras-content">
           <h1 className="equipamentos-title">Armaduras</h1>
 
-          {armadurasTeste.map((armadura, index) => (
+          {armadurasTeste.length > 0 ? ( armadurasTeste.map((armadura, index) => (
             <ItemSection
               key={armadura.id}
               lixeiraInline={false}
@@ -183,7 +185,9 @@ function EquipamentosPage() {
                 </div>
               </div>
             </ItemSection>
-          ))}
+          ))) : (
+            <Adicionar display={true} onAddClick={adicionarArmadura} sozinho />
+          )}
         </section>
       </main>
     </div>
