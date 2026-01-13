@@ -49,3 +49,9 @@ export async function atualizarFicha(ficha: unknown, user_id: number, token: str
         }
     });
 }
+export async function me(token: string) {
+    return await fetchApiData('me', {
+        method: 'GET',
+        authorization: `Bearer ${token}`,
+    });
+}
