@@ -8,12 +8,13 @@ import {
   removeUser,
 } from "./AuthService";
 import * as api from "../services/Api";
+import type { Ficha } from "../Util/Ficha";
 
 type User = {
   id: number;
   name: string;
   email: string;
-  ficha: unknown;
+  ficha: unknown | Ficha;
   created_at: string;
   updated_at: string;
 };
@@ -23,6 +24,8 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
   loading: boolean;
+  ficha: Ficha | null;
+  updateFicha: (ficha: Ficha) => void;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -31,11 +34,32 @@ export { AuthContext };
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUserState] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [ficha, setFicha] = useState<Ficha | null>(null);
 
   function signOut() {
     removeToken();
     removeUser();
     setUserState(null);
+    setFicha(null)
+  }
+
+  async function updateFicha(ficha: Ficha) {
+
+    if (!user) return;
+
+    const token = getToken();
+    if (!token) {
+        signOut();
+        return;
+    }
+
+    setFicha(ficha);
+
+    const updatedUser = {...user, ficha};
+    setUserState(updatedUser);
+    setUser(updatedUser);
+
+    await api.atualizarFicha(ficha, user.id, token)
   }
 
   useEffect(() => {
@@ -46,6 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (token && storedUser) {
         try {
           setUserState(storedUser);
+          setFicha(storedUser.ficha as Ficha);
         } catch {
           signOut();
         }
@@ -65,10 +90,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(usuario);
     setUserState(usuario);
     setLoading(false)
+    setFicha(usuario.ficha as Ficha);
   }
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ user, signIn, signOut, loading, ficha, updateFicha }}>
       {children}
     </AuthContext.Provider>
   );

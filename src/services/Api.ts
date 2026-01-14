@@ -55,5 +55,5 @@ export async function me(token: string) {
     return await fetchApiData('me', {
         method: 'GET',
         authorization: `Bearer ${token}`,
-    });
+    }).then(data => data.usuario);
 }

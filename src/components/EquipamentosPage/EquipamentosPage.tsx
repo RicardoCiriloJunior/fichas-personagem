@@ -7,31 +7,20 @@ import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
 import { useState } from "react";
 import type { Arma, Armadura } from "../../Util/Ficha";
 import { Adicionar } from "../ItemSection/ItemSection";
+import { useAuth } from "../../auth/useAuth";
 
 function EquipamentosPage() {
   const WIDTH_INPUT = "40%";
 
-  const [armasTeste, setArmas] = useState<Arma[]>([
-    {
-      id: crypto.randomUUID(),
-      nome: "Espada Longa",
-      encantamento: "+1 Fogo",
-      dano: "1d8 + 2",
-      custo: "150 PO",
-    },
-    {
-      id: crypto.randomUUID(),
-      nome: "Arco Curto",
-      encantamento: "+2 Gelo",
-      dano: "1d6 + 1",
-      custo: "120 PO",
-    },
-  ]);
+  const { ficha, updateFicha } = useAuth();
 
-  const [armadurasTeste, setArmaduras] = useState<Armadura[]>([
-    { id: crypto.randomUUID(), nome: "Cota de Malha", defesa: 15 },
-    { id: crypto.randomUUID(), nome: "Armadura de Couro", defesa: 12 },
-  ]);
+  const [armasLocal, setArmas] = useState<Arma[]>(
+    ficha?.equipamentos.armas || []
+  );
+
+  const [armadurasLocal, setArmaduras] = useState<Armadura[]>(
+    ficha?.equipamentos.armaduras || []
+  );
 
   function adicionarArma() {
     setArmas(prev => [
@@ -83,11 +72,11 @@ function EquipamentosPage() {
         <section className="blue-content equipamentos-content" id="armas-content">
           <h1 className="equipamentos-title">Armas</h1>
 
-          {armasTeste.length > 0 ? ( armasTeste.map((arma, index) => (
+          {armasLocal.length > 0 ? ( armasLocal.map((arma, index) => (
             <ItemSection
               key={arma.id}
               lixeiraInline={false}
-              ultimoItem={index === armasTeste.length - 1}
+              ultimoItem={index === armasLocal.length - 1}
               onAddClick={adicionarArma}
               onDeleteClick={() => removerArma(arma.id)}
             >
@@ -148,11 +137,11 @@ function EquipamentosPage() {
         <section className="blue-content equipamentos-content" id="armaduras-content">
           <h1 className="equipamentos-title">Armaduras</h1>
 
-          {armadurasTeste.length > 0 ? ( armadurasTeste.map((armadura, index) => (
+          {armadurasLocal.length > 0 ? ( armadurasLocal.map((armadura, index) => (
             <ItemSection
               key={armadura.id}
               lixeiraInline={false}
-              ultimoItem={index === armadurasTeste.length - 1}
+              ultimoItem={index === armadurasLocal.length - 1}
               onAddClick={adicionarArmadura}
               onDeleteClick={() => removerArmadura(armadura.id)}
             >

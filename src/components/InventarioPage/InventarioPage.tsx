@@ -5,12 +5,14 @@ import { Diamante } from "../Header/Header";
 import StatusValor from "../StatusValor/StatusValor";
 import { useState } from "react";
 import { Adicionar } from "../ItemSection/ItemSection";
+import { useAuth } from "../../auth/useAuth";
+import type { Item } from "../../Util/Ficha";
 function InventarioPage() {
-  const [itensInventario, setItensInventario] = useState([
-    { id: crypto.randomUUID(), nome: "Corda", quantidade: 2 },
-    { id: crypto.randomUUID(), nome: "Tocha", quantidade: 5 },
-    { id: crypto.randomUUID(), nome: "Pederneira", quantidade: 1 },
-  ]);
+  const { ficha, updateFicha } = useAuth();
+  const [itensInventario, setItensInventario] = useState<Item[]>(
+    ficha?.inventario || []
+  );
+
 
   function adicionarItem() {
     setItensInventario([
