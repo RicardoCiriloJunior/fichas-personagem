@@ -47,6 +47,8 @@
 .popup-button {
     color: white;
     border-radius: 7px;
+    font-size: 20px;
+    font-family: 'Alice';
     width: 115px;
     height: 30px;
     border: none;

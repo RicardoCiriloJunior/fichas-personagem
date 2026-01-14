@@ -3,51 +3,74 @@ import Header from "../Header/Header";
 import ItemSection from "../ItemSection/ItemSection";
 import { Diamante } from "../Header/Header";
 import StatusValor from "../StatusValor/StatusValor";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Adicionar } from "../ItemSection/ItemSection";
 import { useAuth } from "../../auth/useAuth";
 import type { Item } from "../../Util/Ficha";
+import dado_10 from "../../assets/dado-10.png";
+import PopUp from "../PopUp/PopUp";
 function InventarioPage() {
   const { ficha, updateFicha } = useAuth();
-  const [itensInventario, setItensInventario] = useState<Item[]>(
-    ficha?.inventario || []
+  const [itensInventarioLocal, setItensInventarioLocal] = useState<Item[]>(
+    structuredClone(ficha?.inventario) || []
   );
+  const [itensInventarioOriginal, setItensInventarioOriginal] = useState<Item[]>(
+    structuredClone(ficha?.inventario) || []
+  );
+  const TITULO_AVISO = "Salve!"
+  const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
 
-
+  const popUpAviso = useMemo( () => {
+    if (!itensInventarioLocal || !itensInventarioOriginal) return false;
+    return JSON.stringify(itensInventarioLocal) !== JSON.stringify(itensInventarioOriginal);
+  }, [itensInventarioLocal, itensInventarioOriginal]);
+  
+  
   function adicionarItem() {
-    setItensInventario([
-      ...itensInventario,
+    setItensInventarioLocal([
+      ...itensInventarioLocal,
       { id: crypto.randomUUID(), nome: "", quantidade: 0 },
     ]);
   }
   function removerItem(indexToRemove: number) {
-    const novosItens = itensInventario.filter(
+    const novosItens = itensInventarioLocal.filter(
       (_, index) => index !== indexToRemove
     );
-    setItensInventario(novosItens);
+    setItensInventarioLocal(novosItens);
   }
   function atualizarNome(id: string, nome: string) {
-    setItensInventario((prev) =>
+    setItensInventarioLocal((prev) =>
       prev.map((item) => (item.id === id ? { ...item, nome } : item))
-    );
-  }
-  function atualizarQuantidade(id: string, quantidade: number) {
-    setItensInventario((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantidade } : item))
-    );
-  }
+  );
+}
+function atualizarQuantidade(id: string, quantidade: number) {
+  setItensInventarioLocal((prev) =>
+    prev.map((item) => (item.id === id ? { ...item, quantidade } : item))
+);
+}
+async function salvarInventario() {
+  if (!ficha) return;
+  
+  const fichaAtualizada = {
+    ...ficha,
+    inventario: itensInventarioLocal,
+  };
+  await updateFicha(fichaAtualizada);
+  setItensInventarioLocal(structuredClone(itensInventarioLocal));
+  setItensInventarioOriginal(structuredClone(itensInventarioLocal));
+}
 
-  return (
+return (
     <div className="home-container" id="inventario-page">
       <Header title="Ficha" voltar={true} navigateTo="/" />
       <main>
         <h1 className="home-title">Inventário</h1>
-        {itensInventario.length > 0 && (
+        {itensInventarioLocal.length > 0 && (
           <div className="blue-content" id="inventario-content" style={{paddingBottom: 40}}>
-            {itensInventario.map((item, index) => (
+            {itensInventarioLocal.map((item, index) => (
               <ItemSection
                 lixeiraInline={true}
-                ultimoItem={index === itensInventario.length - 1}
+                ultimoItem={index === itensInventarioLocal.length - 1}
                 key={item.id}
                 onAddClick={adicionarItem}
                 onDeleteClick={() => removerItem(index)}
@@ -74,12 +97,22 @@ function InventarioPage() {
             ))}
           </div>
         )}
-        {itensInventario.length === 0 && (
+        {itensInventarioLocal.length === 0 && (
           <div className="blue-content" id="inventario-content">
             <Adicionar display={true} onAddClick={adicionarItem} sozinho />
           </div>
         )}
       </main>
+      {popUpAviso && (
+        <PopUp
+          title={TITULO_AVISO}
+          message={MSG_AVISO}
+          type="info"
+          buttonContent="Salvar"
+          srcImg={dado_10}
+          onClick={salvarInventario}
+        />
+      )}
     </div>
   );
 }

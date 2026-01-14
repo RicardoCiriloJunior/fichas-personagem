@@ -4,49 +4,67 @@ import ItemSection from "../ItemSection/ItemSection";
 import InputLogin from "../InputLogin/InputLogin";
 import StatusValor from "../StatusValor/StatusValor";
 import LinhaHexagono from "../LinhaHexagono/LinhaHexagono";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Arma, Armadura } from "../../Util/Ficha";
 import { Adicionar } from "../ItemSection/ItemSection";
 import { useAuth } from "../../auth/useAuth";
+import dado_10 from "../../assets/dado-10.png";
+import PopUp from "../PopUp/PopUp";
 
 function EquipamentosPage() {
   const WIDTH_INPUT = "40%";
+  const TITLE_AVISO = "Salve!"
+  const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
 
   const { ficha, updateFicha } = useAuth();
 
-  const [armasLocal, setArmas] = useState<Arma[]>(
-    ficha?.equipamentos.armas || []
+  const [armasLocal, setArmasLocal] = useState<Arma[]>(
+    structuredClone(ficha?.equipamentos.armas) || []
+  );
+  const [armasOriginal, setArmasOriginal] = useState<Arma[]>(
+    structuredClone(ficha?.equipamentos.armas) || []
   );
 
-  const [armadurasLocal, setArmaduras] = useState<Armadura[]>(
-    ficha?.equipamentos.armaduras || []
+  const [armadurasLocal, setArmadurasLocal] = useState<Armadura[]>(
+    structuredClone(ficha?.equipamentos.armaduras) || []
   );
+  const [armadurasOriginal, setArmadurasOriginal] = useState<Armadura[]>(
+    structuredClone(ficha?.equipamentos.armaduras) || []
+  );
+
+  const popUpAviso = useMemo( () => {
+    if (!armasLocal || !armasOriginal) return false;
+    if (!armadurasLocal || !armadurasOriginal) return false;
+
+    return (JSON.stringify(armasLocal) !== JSON.stringify(armasOriginal)) ||
+           (JSON.stringify(armadurasLocal) !== JSON.stringify(armadurasOriginal));
+  }, [armasLocal, armasOriginal, armadurasLocal, armadurasOriginal]);
+
 
   function adicionarArma() {
-    setArmas(prev => [
+    setArmasLocal(prev => [
       ...prev,
       { id: crypto.randomUUID(), nome: "", encantamento: "", dano: "", custo: "" },
     ]);
   }
 
   function adicionarArmadura() {
-    setArmaduras(prev => [
+    setArmadurasLocal(prev => [
       ...prev,
       { id: crypto.randomUUID(), nome: "", defesa: 0 },
     ]);
   }
 
   function removerArma(id: string) {
-    setArmas(prev => prev.filter(arma => arma.id !== id));
+    setArmasLocal(prev => prev.filter(arma => arma.id !== id));
   }
 
   function removerArmadura(id: string) {
-    setArmaduras(prev => prev.filter(a => a.id !== id));
+    setArmadurasLocal(prev => prev.filter(a => a.id !== id));
   }
 
-  // --- Atualizar campos ---
   function atualizarArma(id: string, campo: keyof Arma, valor: string) {
-    setArmas(prev =>
+    setArmasLocal(prev =>
       prev.map(arma =>
         arma.id === id ? { ...arma, [campo]: valor } : arma
       )
@@ -54,12 +72,33 @@ function EquipamentosPage() {
   }
 
   function atualizarDefesa(id: string, defesa: number) {
-    setArmaduras(prev =>
+    setArmadurasLocal(prev =>
       prev.map(a =>
         a.id === id ? { ...a, defesa } : a
       )
     );
   }
+
+  async function salvarEquipamentos() {
+    if (!ficha) return;
+
+    const fichaAtualizada = {
+      ...ficha,
+      equipamentos: {
+        armas: armasLocal,
+        armaduras: armadurasLocal,
+      },
+    };
+
+    await updateFicha(fichaAtualizada);
+
+    setArmasOriginal(structuredClone(armasLocal));
+    setArmasLocal(structuredClone(armasLocal));
+
+    setArmadurasLocal(structuredClone(armadurasLocal));
+    setArmadurasOriginal(structuredClone(armadurasLocal));
+  }
+  
 
   return (
     <div className="home-container" id="equipamentos-page">
@@ -68,7 +107,6 @@ function EquipamentosPage() {
       <main>
         <h1 className="home-title">Equipamentos</h1>
 
-        {/* Seção Armas */}
         <section className="blue-content equipamentos-content" id="armas-content">
           <h1 className="equipamentos-title">Armas</h1>
 
@@ -157,7 +195,7 @@ function EquipamentosPage() {
                   value={armadura.nome}
                   onChange={(e) => {
                     const novoNome = e.target.value;
-                    setArmaduras(prev =>
+                    setArmadurasLocal(prev =>
                       prev.map(a => a.id === armadura.id ? { ...a, nome: novoNome } : a)
                     );
                   }}
@@ -179,6 +217,16 @@ function EquipamentosPage() {
           )}
         </section>
       </main>
+      {popUpAviso && (
+        <PopUp 
+          title={TITLE_AVISO}
+          message={MSG_AVISO}
+          srcImg={dado_10}
+          type={'info'}
+          buttonContent="Salvar"
+          onClick={salvarEquipamentos}
+        />
+      )}
     </div>
   );
 }

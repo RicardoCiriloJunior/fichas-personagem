@@ -8,13 +8,34 @@ import OutrasSecoesBotao from "../OutrasSecoesBotao/OutrasSecoesBotao";
 import cajado from "../../assets/cajado.png";
 import escudo_espada from "../../assets/escudo-espada.png";
 import mochila from "../../assets/mochila.png";
+import dado_10 from "../../assets/dado-10.png";
 import { useAuth } from "../../auth/useAuth";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import PopUp from "../PopUp/PopUp";
+import type { Ficha } from "../../Util/Ficha";
 
 function HomePage() {
   const { ficha, updateFicha } = useAuth();
-  const [localFicha, setLocalFicha] = useState(ficha);
+  const [localFicha, setLocalFicha] = useState<Ficha | null>(() => 
+    ficha ? structuredClone(ficha): null);
+  const [fichaOriginal, setFichaOriginal] = useState<Ficha | null>(() => 
+    ficha ? structuredClone(ficha): null);
+  const TITULO_AVISO = "Salve!"
+  const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
+  const popupAviso = useMemo( () => {
+    if (!fichaOriginal || !localFicha) return false;
+    return JSON.stringify(fichaOriginal) !== JSON.stringify(localFicha);
+  }, [localFicha, fichaOriginal]);
 
+  async function handlePopUpClick() {
+    if (!localFicha || !fichaOriginal) return;
+
+    await updateFicha(localFicha);
+    setFichaOriginal(structuredClone(localFicha));
+    setLocalFicha(structuredClone(localFicha));
+    
+  }
+  
   return (
     <div className="home-container page-container" id="home-page">
       <Header title="Ficha" voltar={false} />
@@ -193,6 +214,16 @@ function HomePage() {
           </div>
         </div>
       </main>
+      {popupAviso && (
+        <PopUp
+          title={TITULO_AVISO}
+          message={MSG_AVISO}
+          type="info"
+          srcImg={dado_10}
+          buttonContent="Salvar"
+          onClick={handlePopUpClick}
+        />
+      )}
     </div>
   );
 }

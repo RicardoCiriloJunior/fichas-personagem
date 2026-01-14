@@ -1,60 +1,70 @@
 import "./MagiasPage.css";
 import Header from "../Header/Header";
 import type { Magia } from "../../Util/Ficha";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ItemSection from "../ItemSection/ItemSection";
 import InputLogin from "../InputLogin/InputLogin";
 import { Adicionar } from "../ItemSection/ItemSection";
+import { useAuth } from "../../auth/useAuth";
+import PopUp from "../PopUp/PopUp";
+import dado_10 from "../../assets/dado-10.png";
 
 function MagiasPage() {
   const WIDTH_INPUT = "45%";
-  const [magiasTeste, setMagiasTeste] = useState<Magia[]>([
-    {
-      id: crypto.randomUUID(),
-      efeito: "Queima os inimigos, dando 10 de dano por rodada.",
-      custo: "5 de mana",
-    },
-    {
-      id: crypto.randomUUID(),
-      efeito: "Congela os inimigos, reduzindo a velocidade em 50%.",
-      custo: "7 de mana",
-    },
-    {
-      id: crypto.randomUUID(),
-      efeito: "Cura 15 pontos de vida do aliado.",
-      custo: "6 de mana",
-    },
-  ]);
+  const TITLE_AVISO = "Salve!"
+  const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
+  const { ficha, updateFicha } = useAuth();
+  const [magiasLocal, setMagiasLocal] = useState<Magia[]>(
+    structuredClone(ficha?.magias) || []);
+  const [magiasOriginal, setMagiasOriginal] = useState<Magia[]>(
+    structuredClone(ficha?.magias) || []);
+    const popUpAviso = useMemo( () => {
+      if (!magiasLocal || !magiasOriginal) return false;
+      return JSON.stringify(magiasLocal) !== JSON.stringify(magiasOriginal);
+    }, [magiasLocal, magiasOriginal])
+  
 
   function adicionarMagia() {
-    setMagiasTeste((prev) => [
+    setMagiasLocal((prev) => [
       ...prev,
       { id: crypto.randomUUID(), efeito: "", custo: "" },
     ]);
   }
   function removerMagia(id: string) {
-    setMagiasTeste((prev) => prev.filter((magia) => magia.id !== id));
+    setMagiasLocal((prev) => prev.filter((magia) => magia.id !== id));
   }
   function atualizarMagia(id: string, campo: keyof Magia, valor: string) {
-    setMagiasTeste((prev) =>
+    setMagiasLocal((prev) =>
       prev.map((magia) =>
         magia.id === id ? { ...magia, [campo]: valor } : magia
       )
     );
   }
 
+  async function salvarMagias() {
+    if (!ficha) return;
+    
+    const fichaAtualizada = {
+      ...ficha,
+      magias: magiasLocal,
+    };
+    await updateFicha(fichaAtualizada);
+
+    setMagiasLocal(structuredClone(magiasLocal));
+    setMagiasOriginal(structuredClone(magiasLocal));
+  }
   return (
     <div className="home-container" id="magias-page">
       <Header title="Ficha" voltar navigateTo="/" />
       <main>
         <h1 className="home-title">Magias</h1>
-        {magiasTeste.length > 0 && (
+        {magiasLocal.length > 0 && (
           <div className="blue-content" id="magias-content" style={{paddingBottom: 40}}>
-            {magiasTeste.map((magia, index) => (
+            {magiasLocal.map((magia, index) => (
               <ItemSection
                 key={magia.id}
                 lixeiraInline={false}
-                ultimoItem={index === magiasTeste.length - 1}
+                ultimoItem={index === magiasLocal.length - 1}
                 onAddClick={adicionarMagia}
                 onDeleteClick={() => removerMagia(magia.id)}
               >
@@ -88,12 +98,22 @@ function MagiasPage() {
             ))}
           </div>
         )}
-        {magiasTeste.length === 0 && (
+        {magiasLocal.length === 0 && (
           <div className="blue-content" id="magias-content">
             <Adicionar display={true} onAddClick={adicionarMagia} sozinho />
           </div>
         )}
       </main>
+      {popUpAviso && (
+        <PopUp 
+          title={TITLE_AVISO}
+          message={MSG_AVISO}
+          type={'info'}
+          buttonContent="Salvar"
+          srcImg={dado_10}
+          onClick={salvarMagias}
+        />
+      )}
     </div>
   );
 }
