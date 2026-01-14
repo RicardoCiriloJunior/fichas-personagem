@@ -1,5 +1,7 @@
 const BASE_URL = 'http://localhost:8000/api'
 import type { Opcoes } from '../Util/Opcoes';
+import { ApiError } from './ApiError';
+
 
 async function fetchApiData(endpoint: string, options: Opcoes) {
     const res = await fetch(`${BASE_URL}/${endpoint}`, {
@@ -14,7 +16,7 @@ async function fetchApiData(endpoint: string, options: Opcoes) {
     const data = await res.json();
 
     if (!res.ok) {
-        throw new Error(data.message ?? 'Erro ao buscar dados');
+        throw new ApiError(data.message ?? 'Erro ao buscar dados');
     }
     return data;
 }

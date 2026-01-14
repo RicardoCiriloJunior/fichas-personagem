@@ -5,6 +5,10 @@ import BotaoConfirmar from "../BotaoConfirmar/BotaoConfirmar";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../auth/useAuth";
 import { useNavigate } from "react-router-dom";
+import { ApiError } from "../../services/ApiError";
+import PopUp from "../PopUp/PopUp";
+import dado_1 from "../../assets/dado-1.png";
+
 function Login() {
   const { signIn } = useAuth();
   const [email, setEmail] = useState("");
@@ -24,7 +28,11 @@ function Login() {
 
       navigate("/");
     } catch (err) {
-      setError(err.message || "Erro ao fazer login");
+      if (err instanceof ApiError) {
+        setError(err.message);
+        return;
+      }
+      setError("Erro ao fazer login");
     }
   }
 
@@ -63,6 +71,9 @@ function Login() {
           <BotaoConfirmar content={"Entrar"} />
         </form>
       </main>
+      {error && (
+        <PopUp type="error" title="Erro!" message={error} buttonContent="Fechar" onClick={() => setError("") } srcImg={dado_1}/>
+      )}
     </div>
   );
 }
