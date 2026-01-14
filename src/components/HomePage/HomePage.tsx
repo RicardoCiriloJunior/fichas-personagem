@@ -146,7 +146,7 @@ function HomePage() {
                   label="Atual"
                   name="vidaAtual"
                   directionLabel="left"
-                  value={localFicha?.vida.atual || 0}
+                  value={localFicha?.vida?.atual || 0}
                   onChange={(v) => atualizarMinMax("vida", "atual", v)}
                 />
                 <div className="barra-diagonal"></div>
@@ -154,7 +154,7 @@ function HomePage() {
                   label="Max"
                   name="vidaMax"
                   directionLabel="right"
-                  value={localFicha?.vida.max || 0}
+                  value={localFicha?.vida?.max || 0}
                   onChange={(v) => atualizarMinMax("vida", "max", v)}
                 />
               </div>
@@ -192,7 +192,7 @@ function HomePage() {
                   label="Atual"
                   name="manaAtual"
                   directionLabel="left"
-                  value={localFicha?.mana.atual || 0}
+                  value={localFicha?.mana?.atual || 0}
                   onChange={(v) => atualizarMinMax("mana", "atual", v)}
                 />
                 <div className="barra-diagonal"></div>
@@ -200,7 +200,7 @@ function HomePage() {
                   label="Max"
                   name="manaMax"
                   directionLabel="right"
-                  value={localFicha?.mana.max || 0}
+                  value={localFicha?.mana?.max || 0}
                   onChange={(v) => atualizarMinMax("mana", "max", v)}
                 />
               </div>
@@ -216,7 +216,7 @@ function HomePage() {
                 <span>FOR</span>{" "}
                 <InputAtributo
                   name="forca"
-                  value={localFicha?.atributos.for.valor || 0}
+                  value={localFicha?.atributos?.for.valor || 0}
                   onChange={(e) => atualizarAtributo("for", "valor", Number(e.target.value))}
                 />
               </div>
@@ -224,7 +224,7 @@ function HomePage() {
                 <span>AGI</span>{" "}
                 <InputAtributo
                   name="agilidade"
-                  value={localFicha?.atributos.agi.valor || 0}
+                  value={localFicha?.atributos?.agi.valor || 0}
                   onChange={(e) => atualizarAtributo("agi", "valor", Number(e.target.value))}
                 />
               </div>
@@ -232,7 +232,7 @@ function HomePage() {
                 <span>INT</span>{" "}
                 <InputAtributo
                   name="inteligencia"
-                  value={localFicha?.atributos.int.valor || 0}
+                  value={localFicha?.atributos?.int.valor || 0}
                   onChange={(e) => atualizarAtributo("int", "valor", Number(e.target.value))}
                 />
               </div>
@@ -240,7 +240,7 @@ function HomePage() {
                 <span>CAR</span>{" "}
                 <InputAtributo
                   name="carisma"
-                  value={localFicha?.atributos.car.valor || 0}
+                  value={localFicha?.atributos?.car.valor || 0}
                   onChange={(e) => atualizarAtributo("car", "valor", Number(e.target.value))}
                 />
               </div>
@@ -248,7 +248,7 @@ function HomePage() {
                 <span>VIG</span>{" "}
                 <InputAtributo
                   name="vigor"
-                  value={localFicha?.atributos.vig.valor || 0}
+                  value={localFicha?.atributos?.vig.valor || 0}
                   onChange={(e) => atualizarAtributo("vig", "valor", Number(e.target.value))}
                 />
               </div>
@@ -256,7 +256,7 @@ function HomePage() {
                 <span>DES</span>{" "}
                 <InputAtributo
                   name="destreza"
-                  value={localFicha?.atributos.des.valor || 0}
+                  value={localFicha?.atributos?.des.valor || 0}
                   onChange={(e) => atualizarAtributo("des", "valor", Number(e.target.value))}
                 />
               </div>
@@ -264,7 +264,7 @@ function HomePage() {
                 <span>SRT</span>{" "}
                 <InputAtributo
                   name="sorte"
-                  value={localFicha?.atributos.srt.valor || 0}
+                  value={localFicha?.atributos?.srt.valor || 0}
                   onChange={(e) => atualizarAtributo("srt", "valor", Number(e.target.value))}
                 />
               </div>
@@ -273,37 +273,37 @@ function HomePage() {
               <p>Mod</p>
               <InputAtributo
                 name="modForca"
-                value={localFicha?.atributos.for.modificador || 0}
+                value={localFicha?.atributos?.for.modificador || 0}
                 onChange={(e) => atualizarAtributo("for", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modAgilidade"
-                value={localFicha?.atributos.agi.modificador || 0}
+                value={localFicha?.atributos?.agi.modificador || 0}
                 onChange={(e) => atualizarAtributo("agi", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modInteligencia"
-                value={localFicha?.atributos.int.modificador || 0}
+                value={localFicha?.atributos?.int.modificador || 0}
                 onChange={(e) => atualizarAtributo("int", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modCarisma"
-                value={localFicha?.atributos.car.modificador || 0}
+                value={localFicha?.atributos?.car.modificador || 0}
                 onChange={(e) => atualizarAtributo("car", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modVigor"
-                value={localFicha?.atributos.vig.modificador || 0}
+                value={localFicha?.atributos?.vig.modificador || 0}
                 onChange={(e) => atualizarAtributo("vig", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modDestreza"
-                value={localFicha?.atributos.des.modificador || 0}
+                value={localFicha?.atributos?.des.modificador || 0}
                 onChange={(e) => atualizarAtributo("des", "modificador", Number(e.target.value))}
               />
               <InputAtributo
                 name="modSorte"
-                value={localFicha?.atributos.srt.modificador || 0}
+                value={localFicha?.atributos?.srt.modificador || 0}
                 onChange={(e) => atualizarAtributo("srt", "modificador", Number(e.target.value))}
               />
             </div>
@@ -315,19 +315,19 @@ function HomePage() {
                 <StatusValor
                   label="Ouro"
                   name="dinheiroOuro"
-                  value={localFicha?.dinheiro.ouro || 0}
+                  value={localFicha?.dinheiro?.ouro || 0}
                   onChange={(v) => atualizarDinheiro("ouro", v)}
                 />
                 <StatusValor
                   label="Prata"
                   name="dinheiroPrata"
-                  value={localFicha?.dinheiro.prata || 0}
+                  value={localFicha?.dinheiro?.prata || 0}
                   onChange={(v) => atualizarDinheiro("prata", v)}
                 />
                 <StatusValor
                   label="Cobre"
                   name="dinheiroCobre"
-                  value={localFicha?.dinheiro.cobre || 0}
+                  value={localFicha?.dinheiro?.cobre || 0}
                   onChange={(v) => atualizarDinheiro("cobre", v)}
                 />
               </div>
@@ -338,21 +338,21 @@ function HomePage() {
                 <StatusValor
                   label="Generalistas"
                   name="repGeneralistas"
-                  value={localFicha?.reputacao.generalistas || 0}
+                  value={localFicha?.reputacao?.generalistas || 0}
                   classname="status-valor-reputacao"
                   onChange={(v) => atualizarReputacao("generalistas", v)}
                 />
                 <StatusValor
                   label="Puristas"
                   name="repPuristas"
-                  value={localFicha?.reputacao.puristas || 0}
+                  value={localFicha?.reputacao?.puristas || 0}
                   classname="status-valor-reputacao"
                   onChange={(v) => atualizarReputacao("puristas", v)}
                 />
                 <StatusValor
                   label="Karma"
                   name="repKarma"
-                  value={localFicha?.reputacao.karma || 0}
+                  value={localFicha?.reputacao?.karma || 0}
                   classname="status-valor-reputacao"
                   onChange={(v) => atualizarReputacao("karma", v)}
                 />
