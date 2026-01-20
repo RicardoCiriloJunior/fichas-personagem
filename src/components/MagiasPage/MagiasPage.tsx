@@ -8,21 +8,30 @@ import { Adicionar } from "../ItemSection/ItemSection";
 import { useAuth } from "../../auth/useAuth";
 import PopUp from "../PopUp/PopUp";
 import dado_10 from "../../assets/dado-10.png";
+import dado_20 from "../../assets/dado-20.png";
 
 function MagiasPage() {
   const WIDTH_INPUT = "45%";
-  const TITLE_AVISO = "Salve!"
-  const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
+  const TITLE_AVISO = "Salve!";
+  const MSG_AVISO =
+    "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!";
   const { ficha, updateFicha } = useAuth();
   const [magiasLocal, setMagiasLocal] = useState<Magia[]>(
-    structuredClone(ficha?.magias) || []);
+    structuredClone(ficha?.magias) || []
+  );
   const [magiasOriginal, setMagiasOriginal] = useState<Magia[]>(
-    structuredClone(ficha?.magias) || []);
-    const popUpAviso = useMemo( () => {
-      if (!magiasLocal || !magiasOriginal) return false;
-      return JSON.stringify(magiasLocal) !== JSON.stringify(magiasOriginal);
-    }, [magiasLocal, magiasOriginal])
-  
+    structuredClone(ficha?.magias) || []
+  );
+
+  const popUpAviso = useMemo(() => {
+    if (!magiasLocal || !magiasOriginal) return false;
+    return JSON.stringify(magiasLocal) !== JSON.stringify(magiasOriginal);
+  }, [magiasLocal, magiasOriginal]);
+
+  const [exibirPopUpSucesso, setExibirPopUpSucesso] = useState(false);
+  const popUpSucesso = useMemo(() => {
+    return exibirPopUpSucesso;
+  }, [exibirPopUpSucesso]);
 
   function adicionarMagia() {
     setMagiasLocal((prev) => [
@@ -43,7 +52,7 @@ function MagiasPage() {
 
   async function salvarMagias() {
     if (!ficha) return;
-    
+
     const fichaAtualizada = {
       ...ficha,
       magias: magiasLocal,
@@ -52,6 +61,7 @@ function MagiasPage() {
 
     setMagiasLocal(structuredClone(magiasLocal));
     setMagiasOriginal(structuredClone(magiasLocal));
+    setExibirPopUpSucesso(true);
   }
   return (
     <div className="home-container" id="magias-page">
@@ -59,7 +69,11 @@ function MagiasPage() {
       <main>
         <h1 className="home-title">Magias</h1>
         {magiasLocal.length > 0 && (
-          <div className="blue-content" id="magias-content" style={{paddingBottom: 40}}>
+          <div
+            className="blue-content"
+            id="magias-content"
+            style={{ paddingBottom: 40 }}
+          >
             {magiasLocal.map((magia, index) => (
               <ItemSection
                 key={magia.id}
@@ -105,13 +119,24 @@ function MagiasPage() {
         )}
       </main>
       {popUpAviso && (
-        <PopUp 
+        <PopUp
           title={TITLE_AVISO}
           message={MSG_AVISO}
-          type={'info'}
+          type={"info"}
           buttonContent="Salvar"
           srcImg={dado_10}
           onClick={salvarMagias}
+        />
+      )}
+      {popUpSucesso && (
+        <PopUp
+          title="Sucesso!"
+          message="Informações salvas com sucesso!"
+          type="success"
+          buttonContent="Fechar"
+          srcImg={dado_20}
+          closeInterval={5000}
+          onTimeout={() => setExibirPopUpSucesso(false)}
         />
       )}
     </div>

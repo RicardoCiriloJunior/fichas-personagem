@@ -9,10 +9,14 @@ import cajado from "../../assets/cajado.png";
 import escudo_espada from "../../assets/escudo-espada.png";
 import mochila from "../../assets/mochila.png";
 import dado_10 from "../../assets/dado-10.png";
+import dado_20 from "../../assets/dado-20.png";
+import dado_1 from "../../assets/dado-1.png";
 import { useAuth } from "../../auth/useAuth";
 import { useMemo, useState } from "react";
 import PopUp from "../PopUp/PopUp";
 import type { Ficha, Atributo } from "../../Util/Ficha";
+import { ApiError } from "../../services/ApiError";
+
 
 function HomePage() {
   const { ficha, updateFicha } = useAuth();
@@ -25,17 +29,32 @@ function HomePage() {
   const TITULO_AVISO = "Salve!";
   const MSG_AVISO =
     "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!";
+  const TIPO_AVISO = "info";
+  const [msgError, setMsgError] = useState<string | null>(null);
+
   const popupAviso = useMemo(() => {
     if (!fichaOriginal || !localFicha) return false;
     return JSON.stringify(fichaOriginal) !== JSON.stringify(localFicha);
   }, [localFicha, fichaOriginal]);
 
-  async function handlePopUpClick() {
+  const [exibirPopUpSucesso, setExibirPopUpSucesso] = useState(false);
+  const popUpSucesso = useMemo(() => {
+    return exibirPopUpSucesso;
+  }, [exibirPopUpSucesso]);
+
+  async function handleInfoPopUpClick() {
     if (!localFicha || !fichaOriginal) return;
 
-    await updateFicha(localFicha);
+    try {
+      await updateFicha(localFicha);
+    } catch (error) {
+      setMsgError(error instanceof ApiError ? error.message : String(error));
+      return;
+    }
+
     setFichaOriginal(structuredClone(localFicha));
     setLocalFicha(structuredClone(localFicha));
+    setExibirPopUpSucesso(true);
   }
 
   function atualizarFichaLocalRaiz(campo: keyof Ficha, valor: string | number) {
@@ -89,9 +108,9 @@ function HomePage() {
       ...localFicha,
       dinheiro: {
         ...localFicha.dinheiro,
-        [tipo]: valor
-      }
-    }
+        [tipo]: valor,
+      },
+    };
 
     setLocalFicha(novaFicha);
   }
@@ -102,9 +121,9 @@ function HomePage() {
       ...localFicha,
       reputacao: {
         ...localFicha.reputacao,
-        [tipo]: valor
-      }
-    }
+        [tipo]: valor,
+      },
+    };
 
     setLocalFicha(novaFicha);
   }
@@ -217,7 +236,9 @@ function HomePage() {
                 <InputAtributo
                   name="forca"
                   value={localFicha?.atributos?.for.valor || 0}
-                  onChange={(e) => atualizarAtributo("for", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("for", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -225,7 +246,9 @@ function HomePage() {
                 <InputAtributo
                   name="agilidade"
                   value={localFicha?.atributos?.agi.valor || 0}
-                  onChange={(e) => atualizarAtributo("agi", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("agi", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -233,7 +256,9 @@ function HomePage() {
                 <InputAtributo
                   name="inteligencia"
                   value={localFicha?.atributos?.int.valor || 0}
-                  onChange={(e) => atualizarAtributo("int", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("int", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -241,7 +266,9 @@ function HomePage() {
                 <InputAtributo
                   name="carisma"
                   value={localFicha?.atributos?.car.valor || 0}
-                  onChange={(e) => atualizarAtributo("car", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("car", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -249,7 +276,9 @@ function HomePage() {
                 <InputAtributo
                   name="vigor"
                   value={localFicha?.atributos?.vig.valor || 0}
-                  onChange={(e) => atualizarAtributo("vig", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("vig", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -257,7 +286,9 @@ function HomePage() {
                 <InputAtributo
                   name="destreza"
                   value={localFicha?.atributos?.des.valor || 0}
-                  onChange={(e) => atualizarAtributo("des", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("des", "valor", Number(e.target.value))
+                  }
                 />
               </div>
               <div className="atributo">
@@ -265,7 +296,9 @@ function HomePage() {
                 <InputAtributo
                   name="sorte"
                   value={localFicha?.atributos?.srt.valor || 0}
-                  onChange={(e) => atualizarAtributo("srt", "valor", Number(e.target.value))}
+                  onChange={(e) =>
+                    atualizarAtributo("srt", "valor", Number(e.target.value))
+                  }
                 />
               </div>
             </div>
@@ -274,37 +307,79 @@ function HomePage() {
               <InputAtributo
                 name="modForca"
                 value={localFicha?.atributos?.for.modificador || 0}
-                onChange={(e) => atualizarAtributo("for", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "for",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modAgilidade"
                 value={localFicha?.atributos?.agi.modificador || 0}
-                onChange={(e) => atualizarAtributo("agi", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "agi",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modInteligencia"
                 value={localFicha?.atributos?.int.modificador || 0}
-                onChange={(e) => atualizarAtributo("int", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "int",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modCarisma"
                 value={localFicha?.atributos?.car.modificador || 0}
-                onChange={(e) => atualizarAtributo("car", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "car",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modVigor"
                 value={localFicha?.atributos?.vig.modificador || 0}
-                onChange={(e) => atualizarAtributo("vig", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "vig",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modDestreza"
                 value={localFicha?.atributos?.des.modificador || 0}
-                onChange={(e) => atualizarAtributo("des", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "des",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
               <InputAtributo
                 name="modSorte"
                 value={localFicha?.atributos?.srt.modificador || 0}
-                onChange={(e) => atualizarAtributo("srt", "modificador", Number(e.target.value))}
+                onChange={(e) =>
+                  atualizarAtributo(
+                    "srt",
+                    "modificador",
+                    Number(e.target.value)
+                  )
+                }
               />
             </div>
           </div>
@@ -383,10 +458,30 @@ function HomePage() {
         <PopUp
           title={TITULO_AVISO}
           message={MSG_AVISO}
-          type="info"
+          type={TIPO_AVISO}
           srcImg={dado_10}
           buttonContent="Salvar"
-          onClick={handlePopUpClick}
+          onClick={handleInfoPopUpClick}
+        />
+      )}
+      {popUpSucesso && (
+        <PopUp
+          title="Sucesso!"
+          message="As informações foram salvas com sucesso!"
+          type={"success"}
+          srcImg={dado_20}
+          closeInterval={5000}
+          onTimeout={() => setExibirPopUpSucesso(false)}
+        />
+      )}
+      {msgError && (
+        <PopUp
+          title="Erro!"
+          message={msgError}
+          type={"error"}
+          srcImg={dado_1}
+          buttonContent="Fechar"
+          onClick={() => setMsgError(null)}
         />
       )}
     </div>

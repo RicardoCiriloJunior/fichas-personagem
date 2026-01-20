@@ -12,13 +12,13 @@ function App(){
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>}/>
-        <Route path="/login" element={<LoginPage />}/>
-        <Route path="/cadastro" element={<CadastroPage />}/>
-        <Route path="/esqueceu-senha" element={<EsqueceuSenhaPage />}/>
-        <Route path="/inventario" element={<ProtectedRoute><InventarioPage /></ProtectedRoute>}/>
-        <Route path="/equipamentos" element={<ProtectedRoute><EquipamentosPage /></ProtectedRoute>}/>
-        <Route path="/magias" element={<ProtectedRoute><MagiasPage /></ProtectedRoute>}/>
+          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>}/>
+          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/cadastro" element={<CadastroPage />}/>
+          <Route path="/esqueceu-senha" element={<EsqueceuSenhaPage />}/>
+          <Route path="/inventario" element={<ProtectedRoute><InventarioPage /></ProtectedRoute>}/>
+          <Route path="/equipamentos" element={<ProtectedRoute><EquipamentosPage /></ProtectedRoute>}/>
+          <Route path="/magias" element={<ProtectedRoute><MagiasPage /></ProtectedRoute>}/>
       </Routes>
     </AuthProvider>
   )

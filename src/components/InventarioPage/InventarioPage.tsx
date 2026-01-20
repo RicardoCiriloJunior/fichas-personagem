@@ -8,7 +8,9 @@ import { Adicionar } from "../ItemSection/ItemSection";
 import { useAuth } from "../../auth/useAuth";
 import type { Item } from "../../Util/Ficha";
 import dado_10 from "../../assets/dado-10.png";
+import dado_20 from "../../assets/dado-20.png";
 import PopUp from "../PopUp/PopUp";
+import { ApiError } from "../../services/ApiError";
 function InventarioPage() {
   const { ficha, updateFicha } = useAuth();
   const [itensInventarioLocal, setItensInventarioLocal] = useState<Item[]>(
@@ -24,7 +26,10 @@ function InventarioPage() {
     if (!itensInventarioLocal || !itensInventarioOriginal) return false;
     return JSON.stringify(itensInventarioLocal) !== JSON.stringify(itensInventarioOriginal);
   }, [itensInventarioLocal, itensInventarioOriginal]);
-  
+  const [exibirSucesso, setExibirSucesso] = useState(false);
+  const popUpSucesso = useMemo( () => {
+    return exibirSucesso;
+  }, [exibirSucesso]);
   
   function adicionarItem() {
     setItensInventarioLocal([
@@ -55,11 +60,23 @@ async function salvarInventario() {
     ...ficha,
     inventario: itensInventarioLocal,
   };
-  await updateFicha(fichaAtualizada);
+
+  try {
+    await updateFicha(fichaAtualizada);
+  } catch (err) {
+    if ( err instanceof ApiError ) {
+      alert(err.message);
+      return;
+    }
+    alert("Erro imprevisto ao salvar o inventário.");
+    return;
+  }
+
   setItensInventarioLocal(structuredClone(itensInventarioLocal));
   setItensInventarioOriginal(structuredClone(itensInventarioLocal));
-}
+  setExibirSucesso(true);
 
+}
 return (
     <div className="home-container" id="inventario-page">
       <Header title="Ficha" voltar={true} navigateTo="/" />
@@ -111,6 +128,16 @@ return (
           buttonContent="Salvar"
           srcImg={dado_10}
           onClick={salvarInventario}
+        />
+      )}
+      {popUpSucesso && (
+        <PopUp
+          title="Sucesso!"
+          message="As informações foram salvas com successo!"
+          type={"success"}
+          srcImg={dado_20}
+          closeInterval={5000}
+          onTimeout={() => setExibirSucesso(false)}
         />
       )}
     </div>

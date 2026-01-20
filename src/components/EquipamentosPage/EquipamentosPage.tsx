@@ -9,6 +9,7 @@ import type { Arma, Armadura } from "../../Util/Ficha";
 import { Adicionar } from "../ItemSection/ItemSection";
 import { useAuth } from "../../auth/useAuth";
 import dado_10 from "../../assets/dado-10.png";
+import dado_20 from "../../assets/dado-20.png";
 import PopUp from "../PopUp/PopUp";
 
 function EquipamentosPage() {
@@ -39,6 +40,12 @@ function EquipamentosPage() {
     return (JSON.stringify(armasLocal) !== JSON.stringify(armasOriginal)) ||
            (JSON.stringify(armadurasLocal) !== JSON.stringify(armadurasOriginal));
   }, [armasLocal, armasOriginal, armadurasLocal, armadurasOriginal]);
+
+  const [exibirPopUpSucesso, setExibirPopUpSucesso] = useState(false);
+
+  const popUpSucesso = useMemo( () => {
+    return exibirPopUpSucesso;
+  }, [exibirPopUpSucesso]);
 
 
   function adicionarArma() {
@@ -97,6 +104,8 @@ function EquipamentosPage() {
 
     setArmadurasLocal(structuredClone(armadurasLocal));
     setArmadurasOriginal(structuredClone(armadurasLocal));
+
+    setExibirPopUpSucesso(true);
   }
   
 
@@ -225,6 +234,16 @@ function EquipamentosPage() {
           type={'info'}
           buttonContent="Salvar"
           onClick={salvarEquipamentos}
+        />
+      )}
+      {popUpSucesso && (
+        <PopUp 
+          title="Sucesso!"
+          message="As informações foram salvas com sucesso!"
+          srcImg={dado_20}
+          type={'success'}
+          closeInterval={5000}
+          onTimeout={() => setExibirPopUpSucesso(false)}
         />
       )}
     </div>
