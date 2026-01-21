@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000/api'
+const BASE_URL = 'https://back-end-fichas-personagem.onrender.com/api';
 import type { Opcoes } from '../Util/Opcoes';
 import { ApiError } from './ApiError';
 
