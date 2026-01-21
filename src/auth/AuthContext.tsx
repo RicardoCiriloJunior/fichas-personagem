@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect} from "react";
 import {
   setToken,
   getToken,
@@ -68,15 +68,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const storedUser = getUser();
 
       if (token && storedUser) {
+        setUserState(storedUser);
+        setFicha(storedUser.ficha as Ficha);
+        setLoading(false);
+
         try {
-          setUserState(storedUser);
-          setFicha(storedUser.ficha as Ficha);
+          await api.me(token);
         } catch {
           signOut();
         }
+      } else {
+        setLoading(false);
       }
-
-      setLoading(false);
     }
     loadUser();
   }, []);
