@@ -20,17 +20,17 @@ function EquipamentosPage() {
   const { ficha, updateFicha } = useAuth();
 
   const [armasLocal, setArmasLocal] = useState<Arma[]>(
-    structuredClone(ficha?.equipamentos.armas) || []
+    structuredClone(ficha?.equipamentos?.armas) || []
   );
   const [armasOriginal, setArmasOriginal] = useState<Arma[]>(
-    structuredClone(ficha?.equipamentos.armas) || []
+    structuredClone(ficha?.equipamentos?.armas) || []
   );
 
   const [armadurasLocal, setArmadurasLocal] = useState<Armadura[]>(
-    structuredClone(ficha?.equipamentos.armaduras) || []
+    structuredClone(ficha?.equipamentos?.armaduras) || []
   );
   const [armadurasOriginal, setArmadurasOriginal] = useState<Armadura[]>(
-    structuredClone(ficha?.equipamentos.armaduras) || []
+    structuredClone(ficha?.equipamentos?.armaduras) || []
   );
 
   const popUpAviso = useMemo( () => {
