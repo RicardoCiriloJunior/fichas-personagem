@@ -128,6 +128,8 @@ return (
           buttonContent="Salvar"
           srcImg={dado_10}
           onClick={salvarInventario}
+          allowMinimize
+          minimizedMessage="Não perca nada"
         />
       )}
       {popUpSucesso && (

@@ -234,6 +234,8 @@ function EquipamentosPage() {
           type={'info'}
           buttonContent="Salvar"
           onClick={salvarEquipamentos}
+          allowMinimize
+          minimizedMessage="Não perca nada"
         />
       )}
       {popUpSucesso && (

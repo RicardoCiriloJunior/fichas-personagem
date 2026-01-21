@@ -126,6 +126,8 @@ function MagiasPage() {
           buttonContent="Salvar"
           srcImg={dado_10}
           onClick={salvarMagias}
+          allowMinimize
+          minimizedMessage="Não perca nada"
         />
       )}
       {popUpSucesso && (

@@ -462,6 +462,8 @@ function HomePage() {
           srcImg={dado_10}
           buttonContent="Salvar"
           onClick={handleInfoPopUpClick}
+          allowMinimize
+          minimizedMessage="Não perca nada"
         />
       )}
       {popUpSucesso && (
