@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { ApiError } from "../../services/ApiError";
 import PopUp from "../PopUp/PopUp";
 import dado_1 from "../../assets/dado-1.png";
+import Loading from './Loading';
 
 function Login() {
   const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,7 @@ function Login() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await signIn(email, password);
@@ -33,11 +36,14 @@ function Login() {
         return;
       }
       setError("Erro ao fazer login");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="page-container" id="pagina-login">
+      {loading && <Loading />}
       <Header title="Login" voltar={false} />
       <main>
         <form
