@@ -11,11 +11,13 @@ import { useAuth } from "../../auth/useAuth";
 import dado_10 from "../../assets/dado-10.png";
 import dado_20 from "../../assets/dado-20.png";
 import PopUp from "../PopUp/PopUp";
+import Loading from "../LoginPage/Loading";
 
 function EquipamentosPage() {
   const WIDTH_INPUT = "40%";
   const TITLE_AVISO = "Salve!"
   const MSG_AVISO = "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!"
+  const [loading, setLoading] = useState(false);
 
   const { ficha, updateFicha } = useAuth();
 
@@ -88,6 +90,7 @@ function EquipamentosPage() {
 
   async function salvarEquipamentos() {
     if (!ficha) return;
+    setLoading(true);
 
     const fichaAtualizada = {
       ...ficha,
@@ -99,6 +102,7 @@ function EquipamentosPage() {
 
     await updateFicha(fichaAtualizada);
 
+    setLoading(false);
     setArmasOriginal(structuredClone(armasLocal));
     setArmasLocal(structuredClone(armasLocal));
 
@@ -111,6 +115,7 @@ function EquipamentosPage() {
 
   return (
     <div className="home-container" id="equipamentos-page">
+      {loading && <Loading />}
       <Header title="Ficha" voltar navigateTo="/" />
 
       <main>

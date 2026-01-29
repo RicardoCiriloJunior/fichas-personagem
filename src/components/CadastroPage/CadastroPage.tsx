@@ -9,6 +9,7 @@ import { ApiError } from "../../services/ApiError.ts";
 import PopUp from "../PopUp/PopUp.tsx";
 import dado_1 from "../../assets/dado-1.png";
 import { useNavigate } from "react-router-dom";
+import Loading from "../LoginPage/Loading.tsx";
 
 function CadastroPage() {
   const { signIn } = useAuth();
@@ -18,14 +19,16 @@ function CadastroPage() {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+  const [loading, setLoading] = useState(false);
   function handlePopUpClick() {
     setError(null);
   }
   async function handleCadastro(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
     if (senha !== confirmarSenha) {
       setError("As senhas precisam ser iguais!")
+      setLoading(false);
       return;
     }
 
@@ -40,11 +43,14 @@ function CadastroPage() {
       } else {
         setError("Erro ao cadastrar. Tente novamente.");
       }
+    } finally {
+      setLoading(false);
     }
   }
   return (
     <div className="page-container" id="pagina-cadastro">
       <Header title="Cadastro" voltar={true} navigateTo="/login" />
+      {loading && <Loading />}
       <main>
         <form
           className="blue-content"

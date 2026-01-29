@@ -16,6 +16,7 @@ import { useMemo, useState } from "react";
 import PopUp from "../PopUp/PopUp";
 import type { Ficha, Atributo } from "../../Util/Ficha";
 import { ApiError } from "../../services/ApiError";
+import Loading from "../LoginPage/Loading";
 
 
 function HomePage() {
@@ -41,15 +42,18 @@ function HomePage() {
   const popUpSucesso = useMemo(() => {
     return exibirPopUpSucesso;
   }, [exibirPopUpSucesso]);
+  const [loading, setLoading] = useState(false);
 
   async function handleInfoPopUpClick() {
     if (!localFicha || !fichaOriginal) return;
-
+    setLoading(true);
     try {
       await updateFicha(localFicha);
     } catch (error) {
       setMsgError(error instanceof ApiError ? error.message : String(error));
       return;
+    } finally {
+      setLoading(false);
     }
 
     setFichaOriginal(structuredClone(localFicha));
@@ -129,6 +133,7 @@ function HomePage() {
   }
   return (
     <div className="home-container page-container" id="home-page">
+      {loading && <Loading />}
       <Header title="Ficha" voltar={false} />
       <main>
         <h1 className="home-title">A Grande Guerra</h1>

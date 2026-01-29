@@ -11,6 +11,7 @@ import dado_10 from "../../assets/dado-10.png";
 import dado_20 from "../../assets/dado-20.png";
 import PopUp from "../PopUp/PopUp";
 import { ApiError } from "../../services/ApiError";
+import Loading from "../LoginPage/Loading";
 function InventarioPage() {
   const { ficha, updateFicha } = useAuth();
   const [itensInventarioLocal, setItensInventarioLocal] = useState<Item[]>(
@@ -30,6 +31,7 @@ function InventarioPage() {
   const popUpSucesso = useMemo( () => {
     return exibirSucesso;
   }, [exibirSucesso]);
+  const [loading, setLoading] = useState(false);
   
   function adicionarItem() {
     setItensInventarioLocal([
@@ -55,7 +57,7 @@ function atualizarQuantidade(id: string, quantidade: number) {
 }
 async function salvarInventario() {
   if (!ficha) return;
-  
+  setLoading(true);
   const fichaAtualizada = {
     ...ficha,
     inventario: itensInventarioLocal,
@@ -70,6 +72,8 @@ async function salvarInventario() {
     }
     alert("Erro imprevisto ao salvar o inventário.");
     return;
+  } finally {
+    setLoading(false);
   }
 
   setItensInventarioLocal(structuredClone(itensInventarioLocal));
@@ -79,6 +83,7 @@ async function salvarInventario() {
 }
 return (
     <div className="home-container" id="inventario-page">
+      {loading && <Loading />}
       <Header title="Ficha" voltar={true} navigateTo="/" />
       <main>
         <h1 className="home-title">Inventário</h1>

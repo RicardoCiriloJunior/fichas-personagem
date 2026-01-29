@@ -9,12 +9,14 @@ import { useAuth } from "../../auth/useAuth";
 import PopUp from "../PopUp/PopUp";
 import dado_10 from "../../assets/dado-10.png";
 import dado_20 from "../../assets/dado-20.png";
+import Loading from "../LoginPage/Loading";
 
 function MagiasPage() {
   const WIDTH_INPUT = "45%";
   const TITLE_AVISO = "Salve!";
   const MSG_AVISO =
     "Você tem alterações não salvas. Salve para não perder os dados ao sair da página!";
+
   const { ficha, updateFicha } = useAuth();
   const [magiasLocal, setMagiasLocal] = useState<Magia[]>(
     structuredClone(ficha?.magias) || []
@@ -29,6 +31,7 @@ function MagiasPage() {
   }, [magiasLocal, magiasOriginal]);
 
   const [exibirPopUpSucesso, setExibirPopUpSucesso] = useState(false);
+  const [loading, setLoading] = useState(false);
   const popUpSucesso = useMemo(() => {
     return exibirPopUpSucesso;
   }, [exibirPopUpSucesso]);
@@ -52,6 +55,7 @@ function MagiasPage() {
 
   async function salvarMagias() {
     if (!ficha) return;
+    setLoading(true)
 
     const fichaAtualizada = {
       ...ficha,
@@ -59,12 +63,14 @@ function MagiasPage() {
     };
     await updateFicha(fichaAtualizada);
 
+    setLoading(false);
     setMagiasLocal(structuredClone(magiasLocal));
     setMagiasOriginal(structuredClone(magiasLocal));
     setExibirPopUpSucesso(true);
   }
   return (
     <div className="home-container" id="magias-page">
+      {loading && <Loading />}
       <Header title="Ficha" voltar navigateTo="/" />
       <main>
         <h1 className="home-title">Magias</h1>
